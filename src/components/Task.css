@@ -11,9 +11,15 @@
 .task-title{
     cursor: pointer;
 }
-
 .remove-task-button{
     background-color: #444;
     border: none;
     color: chartreuse;
+    font-size: 25px;
+}
+.info-task-button{
+    background-color: #444;
+    border: none;
+    color: chartreuse;
+    font-size: 25px;
 }

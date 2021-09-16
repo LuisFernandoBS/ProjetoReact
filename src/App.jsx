@@ -1,8 +1,12 @@
-import react, { useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import {BrowserRouter as Router,Route} from 'react-router-dom'
+
 import "./App.css";
 import AddTask from "./components/AddTask";
+import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+
 
 const App = () => {
   const [tasks,setTask] = useState([
@@ -33,7 +37,7 @@ const App = () => {
 
   const handlerTaskClick = (taskId) => {
     const newTask = tasks.map((task) =>{
-      if (task.id == taskId) {
+      if (task.id === taskId) {
         return {...task,completed:!task.completed};
       }
       return task;
@@ -44,19 +48,28 @@ const App = () => {
 
   const handlerRemoveTaskClick = (taskId) => {
     const newTask = tasks.filter((task) =>{
-        return taskId != task.id;
+        return taskId !== task.id;
     });
 
     setTask(newTask);
   };
 
   return (
-    <>
+    <Router>
       <div className="container">
-        <AddTask handlerTaskAddition={handlerTaskAddition}/>
-        <Tasks tasks={tasks} handlerTaskClick={handlerTaskClick} handlerRemoveTaskClick={handlerRemoveTaskClick} />
+        <Header/>
+        <Route
+          path='/'
+          exact
+          render={()=>(
+            <>
+              <AddTask handlerTaskAddition={handlerTaskAddition}/>
+              <Tasks tasks={tasks} handlerTaskClick={handlerTaskClick} handlerRemoveTaskClick={handlerRemoveTaskClick} />
+            </>
+          )}
+        ></Route>
       </div>
-    </>
+    </Router>
   )
 };
 
